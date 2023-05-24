@@ -7,16 +7,37 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find(params[:id])
   end
+
   def new
     @restaurant = Restaurant.new
   end
+
   def create
     @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
-      redirect_to @restaurant, notice: "Created the restaurant."
+      redirect_to @restaurant
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def update
+    @restaurant = Restaurant.find(params[:id])
+    if @restaurant.update(restaurant_params)
+      redirect_to @restaurant
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant.destroy
+    redirect_to restaurants_url
+  end
+
+  def edit
+    @restaurant = Restaurant.find(params[:id])
   end
 
 end

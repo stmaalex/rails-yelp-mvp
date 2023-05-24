@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :restaurants do
     resources :reviews, only: [:new, :create, :show]
   end
+  resources :reviews, only: :destroy
 end
